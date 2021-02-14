@@ -1,14 +1,15 @@
 # AUTO1 project
-- Test results
-![Test](public/images/test.png?raw=true "Test")
-
 - API documentation
 ![Request](public/images/swagger.png?raw=true "Docs")
+
+- Test results
+![Test](public/images/test.png?raw=true "Test")
 
 ### Features
 - User mutable class
 - Car class trait for paintable parts
 - Mock testing fight service
+- Open API documentation for the marketplace
 
 ### Development installation instructions
 
