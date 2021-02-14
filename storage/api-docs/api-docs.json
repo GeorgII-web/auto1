@@ -573,7 +573,8 @@
                 "description": "Success response",
                 "properties": {
                     "message": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "Success"
                     }
                 },
                 "type": "object"

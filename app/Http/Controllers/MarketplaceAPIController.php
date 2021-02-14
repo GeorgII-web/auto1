@@ -473,7 +473,7 @@ class Bid
 class Success
 {
     /**
-     * @OA\Property
+     * @OA\Property(example="Success")
      * @var string
      */
     public string $message;
