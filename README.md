@@ -10,6 +10,8 @@
 - Car class trait for paintable parts
 - Mock testing fight service
 - Open API documentation for the marketplace
+- CI/CD GitHub Actions
+- Laravel sail (Docker)
 
 ### Development installation instructions
 
