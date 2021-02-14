@@ -9,6 +9,7 @@
 - User mutable class
 - Car class trait for paintable parts
 - Mock testing fight service
+- Open API documentation for the marketplace
 
 ### Development installation instructions
 
