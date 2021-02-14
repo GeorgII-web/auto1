@@ -1,0 +1,634 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "description": "Marketplace API description.",
+        "contact": {
+            "email": "george.webfullstack@gmail.com"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Marketplace API Server"
+        }
+    ],
+    "paths": {
+        "/api/lots": {
+            "post": {
+                "tags": [
+                    "Lots"
+                ],
+                "summary": "Create lot, sellers endpoint",
+                "description": "Create lot in the marketplace",
+                "operationId": "App\\Http\\Controllers\\MarketplaceAPIController::lotStore",
+                "parameters": [
+                    {
+                        "name": "cultivar",
+                        "in": "query",
+                        "description": "Cultivar.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country_of_origin",
+                        "in": "query",
+                        "description": "Country of origin.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "harvesting_date",
+                        "in": "query",
+                        "description": "Harvesting date.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "weight",
+                        "in": "query",
+                        "description": "Weight, minimum 1000Kg.",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": "1000.00",
+                            "minimum": "1000.00"
+                        }
+                    },
+                    {
+                        "name": "auction_start",
+                        "in": "query",
+                        "description": "Auction duration start time. Optionally start auction on create lot, may be delayed.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "auction_end",
+                        "in": "query",
+                        "description": "Auction duration end time. Optionally end auction on create lot. ",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "initial_price",
+                        "in": "query",
+                        "description": "Initial price $/Kg (by default starting from $0.0/Kg).",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": "0.00",
+                            "minimum": "0.00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Lot"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unathorized"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Lot create error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "/api/lots/{id}": {
+            "delete": {
+                "tags": [
+                    "Lots"
+                ],
+                "summary": "Delete lot by id, sellers endpoint",
+                "description": "Delete lot from marketplace",
+                "operationId": "App\\Http\\Controllers\\MarketplaceAPIController::lotDestroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lot id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unathorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lot not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Lot delete error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Lots"
+                ],
+                "summary": "Update lot by id, sellers endpoint",
+                "description": "Update lot information",
+                "operationId": "App\\Http\\Controllers\\MarketplaceAPIController::lotUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lot id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "cultivar",
+                        "in": "query",
+                        "description": "Cultivar.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country_of_origin",
+                        "in": "query",
+                        "description": "Country of origin.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "harvesting_date",
+                        "in": "query",
+                        "description": "Harvesting date.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "weight",
+                        "in": "query",
+                        "description": "Weight, minimum 1000Kg.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": "1000.00",
+                            "minimum": "1000.00"
+                        }
+                    },
+                    {
+                        "name": "auction_start",
+                        "in": "query",
+                        "description": "Auction duration start time. Optionally start auction on update lot, may be delayed.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "auction_end",
+                        "in": "query",
+                        "description": "Auction duration end time. Optionally end auction on update lot. ",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "initial_price",
+                        "in": "query",
+                        "description": "Initial price $/Kg (by default starting from $0.0/Kg).",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": "0.00",
+                            "minimum": "0.00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Lot"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unathorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lot not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Lot update error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        },
+        "/api/lots/{id}/bids": {
+            "get": {
+                "tags": [
+                    "Bids"
+                ],
+                "summary": "Get list of the lot bids, sellers endpoint",
+                "description": "Get list of the lot bids",
+                "operationId": "App\\Http\\Controllers\\MarketplaceAPIController::bidIndex",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lot id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Bid"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unathorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lot not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Get bids list error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Bids"
+                ],
+                "summary": "Create bid on the lot, buyers endpoint",
+                "description": "Create bid on the specified lot",
+                "operationId": "App\\Http\\Controllers\\MarketplaceAPIController::bidStore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lot id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bid_price",
+                        "in": "query",
+                        "description": "Bid $/Kg. Must be bigger than the lot initial price.",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": "0.00",
+                            "minimum": "0.00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bid"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unathorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lot not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bid create error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiToken": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Lot": {
+                "description": "Lot object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "3901"
+                    },
+                    "seller_id": {
+                        "type": "integer",
+                        "example": "899"
+                    },
+                    "winner_bid_id": {
+                        "type": "integer",
+                        "example": "7902"
+                    },
+                    "cultivar": {
+                        "type": "string",
+                        "example": "Red Dacca"
+                    },
+                    "country_of_origin": {
+                        "type": "string",
+                        "example": "Costa Rica"
+                    },
+                    "harvesting_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "1500.01"
+                    },
+                    "auction_start": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "auction_end": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "initial_price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "1.20"
+                    }
+                },
+                "type": "object"
+            },
+            "Bid": {
+                "description": "Bid object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "7902"
+                    },
+                    "lot_id": {
+                        "type": "integer",
+                        "example": "3901"
+                    },
+                    "buyer_id": {
+                        "type": "integer",
+                        "example": "72"
+                    },
+                    "bid_date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "bid_price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "1.35"
+                    }
+                },
+                "type": "object"
+            },
+            "Success": {
+                "description": "Success response",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Success"
+                    }
+                },
+                "type": "object"
+            },
+            "Unathorized": {
+                "description": "Unathorized response",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Unathorized"
+                    }
+                },
+                "type": "object"
+            },
+            "NotFound": {
+                "description": "NotFound response",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Not found"
+                    }
+                },
+                "type": "object"
+            },
+            "Error": {
+                "description": "Error response",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Error"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "apiToken": {
+                "type": "apiKey",
+                "name": "api_token",
+                "in": "query"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Lots",
+            "description": "Marketplace lots."
+        },
+        {
+            "name": "Bids",
+            "description": "Lot bids."
+        }
+    ],
+    "security": [
+        []
+    ]
+}
