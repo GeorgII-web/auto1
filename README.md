@@ -1,9 +1,9 @@
 # AUTO1 project
-- Test results
-![Test](public/images/test.png?raw=true "Test")
-
 - API documentation
 ![Request](public/images/swagger.png?raw=true "Docs")
+
+- Test results
+![Test](public/images/test.png?raw=true "Test")
 
 ### Features
 - User mutable class
