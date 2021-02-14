@@ -12,6 +12,10 @@ use PHPUnit\Framework\TestCase;
  */
 class MarketplaceTest extends TestCase
 {
+    /**
+     * Marketplace dummy test.
+     * Information in comments.
+     */
     public function testMarketplaceApi()
     {
         /**
