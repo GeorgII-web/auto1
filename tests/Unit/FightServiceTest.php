@@ -10,6 +10,7 @@ use Throwable;
  * Interface HeroInterface
  *
  * @package Tests\Unit
+ * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 interface HeroInterface
 {

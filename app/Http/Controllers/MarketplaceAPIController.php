@@ -26,6 +26,8 @@ use Illuminate\Http\JsonResponse;
  * )
  * @OA\Tag(name="Lots", description="Marketplace lots.")
  * @OA\Tag(name="Bids", description="Lot bids.")
+ *
+ * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 class MarketplaceAPIController
 {

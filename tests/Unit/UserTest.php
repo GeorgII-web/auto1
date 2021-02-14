@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
  * Mutable.
  *
  * @package App\Library
+ * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 class User
 {

@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
  * Class Car.
  *
  * @package App\Library\Car
+ * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 class Car
 {
