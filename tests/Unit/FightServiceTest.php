@@ -9,7 +9,7 @@ use Throwable;
 /**
  * Interface HeroInterface
  *
- * @package Tests\Unit
+ * @package App\Library\Hero
  * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 interface HeroInterface

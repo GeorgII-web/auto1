@@ -239,6 +239,39 @@ class MarketplaceAPIController
     }
 
     /**
+     * Delete lot by id.
+     *
+     * @OA\Delete(
+     *     path="/api/lots/{id}",
+     *     summary="Delete lot by id, sellers endpoint",
+     *     tags={"Lots"},
+     *     description="Delete lot from marketplace",
+     *     security={{"apiToken": {}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Lot id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Success")),
+     *     @OA\Response(response=401, description="Unauthorized", @OA\JsonContent(ref="#/components/schemas/Unathorized")),
+     *     @OA\Response(response=404, description="Lot not found", @OA\JsonContent(ref="#/components/schemas/NotFound")),
+     *     @OA\Response(response=422, description="Lot delete error", @OA\JsonContent(ref="#/components/schemas/Error")),
+     * )
+     * @param int $id Lot id
+     * @return JsonResponse
+     */
+    public function lotDestroy(int $id): JsonResponse
+    {
+        /**
+         * 7) "Delicious bananas LTD" wants to remove sold lot
+         */
+    }
+
+    /**
      * Create new bid.
      *
      * @OA\Post(
@@ -323,39 +356,6 @@ class MarketplaceAPIController
         /*
         * 6) "Delicious bananas LTD" wants to see a list of bids on his lot
         */
-    }
-
-    /**
-     * Delete lot by id.
-     *
-     * @OA\Delete(
-     *     path="/api/lots/{id}",
-     *     summary="Delete lot by id, sellers endpoint",
-     *     tags={"Lots"},
-     *     description="Delete lot from marketplace",
-     *     security={{"apiToken": {}}},
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Lot id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Success")),
-     *     @OA\Response(response=401, description="Unauthorized", @OA\JsonContent(ref="#/components/schemas/Unathorized")),
-     *     @OA\Response(response=404, description="Lot not found", @OA\JsonContent(ref="#/components/schemas/NotFound")),
-     *     @OA\Response(response=422, description="Lot delete error", @OA\JsonContent(ref="#/components/schemas/Error")),
-     * )
-     * @param int $id Lot id
-     * @return JsonResponse
-     */
-    public function lotDestroy(int $id): JsonResponse
-    {
-        /**
-         * 7) "Delicious bananas LTD" wants to remove sold lot
-         */
     }
 }
 
