@@ -199,5 +199,4 @@ class FightServiceTest extends TestCase
         $fightService = new FightService(damageCalculator: $damageCalculator);
         $fightService->fight(attacker: $attacker, defender: $defender);
     }
-
 }
