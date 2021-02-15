@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class Car.
  *
+ * @author  GeorgII-web <george.webfullstack@gmail.com>
  * @package App\Library\Car
- * @author GeorgII-web <george.webfullstack@gmail.com>
  */
 class Car
 {
@@ -132,6 +132,16 @@ trait Paintable
     protected bool $isPaintDamaged;
 
     /**
+     * Set detail paint damaged
+     *
+     * @param bool $isPaintDamaged Detail paint damaged
+     */
+    public function setIsPaintDamaged(bool $isPaintDamaged): void
+    {
+        $this->isPaintDamaged = $isPaintDamaged;
+    }
+
+    /**
      * Return - is detail paint damaged.
      *
      * @return bool
@@ -157,10 +167,11 @@ final class Door extends CarDetail
      * @param bool $isBroken       Is detail broken
      * @param bool $isPaintDamaged Is detail paint damaged
      */
-    #[Pure] public function __construct(bool $isBroken, bool $isPaintDamaged)
+    public function __construct(bool $isBroken, bool $isPaintDamaged)
     {
         parent::__construct($isBroken);
-        $this->isPaintDamaged = $isPaintDamaged;
+
+        $this->setIsPaintDamaged($isPaintDamaged);
     }
 }
 
